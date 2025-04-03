@@ -1,8 +1,10 @@
-# AI-powered-Homework-Assistant
+# 📚 AI Homework Assistant
 
-✅ AI Homework Assistant – Uses GPT-4 (via OpenAI API) for answering any homework questions.
-✅ Natural Language Math Solver – Solves math problems with AI explanations.
-✅ AI-Powered Summarization – Generates smart summaries.
+An AI-powered homework assistant that helps with answering questions, solving math equations, summarizing text, checking grammar, and detecting plagiarism. This tool leverages the **Ollama** framework with high-quality models like `mistral` for efficient AI-driven responses.
 
-fell free to fork and use 
-i will not use the pull requests 
+## 🚀 Features
+- **AI Homework Helper** – Ask any academic question and get an AI-generated response.
+- **Math Solver** – Step-by-step equation solving with LaTeX output.
+- **Text Summarization** – Get concise summaries of any text.
+- **Grammar Checker** – Detects and corrects grammar mistakes.
+- **Plagiarism Detector** – Compares text for similarities.

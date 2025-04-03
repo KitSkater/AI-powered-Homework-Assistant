@@ -1,28 +1,23 @@
 import sympy as sp
 import nltk
 import language_tool_python
-from googletrans import Translator
 import difflib
-import openai
+import ollama
 
 nltk.download("punkt")
 from nltk.tokenize import sent_tokenize
 
-# OpenAI API Key (Replace with your actual key)
-openai.api_key = "YOUR_OPENAI_API_KEY"
-
 # Initialize tools
 tool = language_tool_python.LanguageTool("en-US")
-translator = Translator()
+
+# Choose a high-quality local model (e.g., mistral, llama3)
+OLLAMA_MODEL = "mistral"
 
 def ask_ai(prompt):
-    """Uses GPT-4 to generate AI-based responses to homework questions."""
+    """Uses Ollama to generate AI-based responses."""
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return response["choices"][0]["message"]["content"]
+        response = ollama.chat(model=OLLAMA_MODEL, messages=[{"role": "user", "content": prompt}])
+        return response["message"]["content"]
     except Exception as e:
         return f"AI Error: {e}"
 
@@ -48,14 +43,6 @@ def check_grammar(text):
         return f"Grammar Issues: {len(matches)} found.\nExample: {matches[0]}"
     return "No grammar issues found."
 
-def translate_text(text, target_language="es"):
-    """Translates text into a target language."""
-    try:
-        translated = translator.translate(text, dest=target_language)
-        return f"Translated ({target_language}): {translated.text}"
-    except Exception as e:
-        return f"Translation Error: {e}"
-
 def plagiarism_check(student_text, reference_text):
     """Checks plagiarism by comparing texts."""
     similarity_ratio = difflib.SequenceMatcher(None, student_text, reference_text).ratio()
@@ -68,9 +55,8 @@ def main():
         print("2️⃣ Solve Math Equation (Step-by-Step)")
         print("3️⃣ Summarize Text (AI-powered)")
         print("4️⃣ Check Grammar")
-        print("5️⃣ Translate Text")
-        print("6️⃣ Plagiarism Check")
-        print("7️⃣ Exit")
+        print("5️⃣ Plagiarism Check")
+        print("6️⃣ Exit")
         choice = input("Choose an option: ")
 
         if choice == "1":
@@ -86,14 +72,10 @@ def main():
             text = input("Enter text for grammar check: ")
             print(check_grammar(text))
         elif choice == "5":
-            text = input("Enter text to translate: ")
-            lang = input("Enter target language code (e.g., 'es' for Spanish): ")
-            print(translate_text(text, lang))
-        elif choice == "6":
             student_text = input("Enter student's text: ")
             reference_text = input("Enter reference text: ")
             print(plagiarism_check(student_text, reference_text))
-        elif choice == "7":
+        elif choice == "6":
             print("Exiting...")
             break
         else:
