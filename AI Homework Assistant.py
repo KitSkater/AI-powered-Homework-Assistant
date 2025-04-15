@@ -15,7 +15,7 @@ OLLAMA_MODEL = "mistral"
 
 # Optional: map subject to model names if using different ones
 MODEL_MAP = {
-    "math": "mistral",
+    "math": "mistral-math",
     "science": "mistral",
     "history": "mistral",
     "literature": "mistral",
